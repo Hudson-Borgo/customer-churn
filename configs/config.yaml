@@ -1,0 +1,8 @@
+project:
+  name: customer-churn-mlops
+  version: 0.1.0
+
+paths:
+  bronze_data: data/bronze/customer_churn.csv
+  silver_data: data/silver/customer_churn.parquet
+  gold_data: data/gold/training_dataset.parquet
