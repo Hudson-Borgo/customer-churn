@@ -83,10 +83,10 @@ Data pipeline implementation is currently under development.
 
 - [x] Project structure
 - [x] Environment setup
-- [ ] Data ingestion
-- [ ] Data validation
-- [ ] Feature engineering
-- [ ] Training pipeline
+- [x] Data ingestion
+- [x] Data validation
+- [x] Feature engineering
+- [x] Training pipeline
 - [ ] MLflow
 - [ ] Docker
 - [ ] FastAPI
