@@ -38,7 +38,8 @@ def validate_duplicate_customers(df: pd.DataFrame) -> None:
 def validate_total_charges(
     df: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Check if TotalCharges can be converted to numeric and handle invalid values."""
+    """Check if TotalCharges can be converted to numeric and handle missing values, 
+    following the business logic."""
 
     df = df.copy()
 
@@ -47,26 +48,30 @@ def validate_total_charges(
         errors="coerce",
     )
 
-    null_count = df["TotalCharges"].isna().sum()
+    valid_missing_mask = (
+        (df["tenure"] == 0)
+        & (df["TotalCharges"].isna())
+    )
 
-    if null_count > 0:
+    df.loc[
+        valid_missing_mask,
+        "TotalCharges"
+    ] = 0 # Set TotalCharges to 0 for customers with tenure 0 and missing TotalCharges, because its a new client who has not been charged yet.
 
-        invalid_rows = df[df["TotalCharges"].isna()]
-        print(
-            invalid_rows[
-                [
-                    "customerID",
-                    "tenure",
-                    "MonthlyCharges",
-                    "TotalCharges",
-                    "Churn",
-                ]
-            ]
-        )
+    remaining_nulls = (
+        df["TotalCharges"]
+        .isna()
+        .sum()
+    )
+
+    if remaining_nulls > 0:
         raise ValueError(
-            f"Found {null_count} invalid TotalCharges values."
-        )
+            f"Found {remaining_nulls} invalid TotalCharges values.")
 
+    print(
+    f"Replaced {valid_missing_mask.sum()} "
+    "missing TotalCharges values."
+    )
     return df
 
 def validate_churn_values(df: pd.DataFrame) -> None:
