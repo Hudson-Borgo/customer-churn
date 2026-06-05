@@ -5,4 +5,5 @@ project:
 paths:
   bronze_data: data/bronze/customer_churn.csv
   silver_data: data/silver/customer_churn.parquet
+  validated_data: data/silver/validated_customers.parquet
   gold_data: data/gold/training_dataset.parquet
