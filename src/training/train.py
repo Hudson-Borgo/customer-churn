@@ -1,4 +1,5 @@
 from pathlib import Path
+from xml.parsers.expat import model
 
 import joblib
 import pandas as pd
@@ -10,7 +11,7 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
-
+import mlflow
 from src.utils.config import load_config
 
 def load_dataset(config: dict) -> pd.DataFrame:
@@ -49,8 +50,8 @@ def split_data(
         y_val,
         y_test,
     )
-    
-    
+
+
 def build_pipeline(X_train):
     categorical_features = X_train.select_dtypes(
         include=["object"]
@@ -128,6 +129,9 @@ def evaluate_model(
             predictions,
         )
     )
+    mlflow.log_metric(
+    "accuracy", accuracy)
+    return accuracy
 
 def save_model(
     model,
@@ -142,47 +146,64 @@ def save_model(
         model,
         model_path,
     )
+    mlflow.sklearn.log_model(
+    sk_model=model,
+    artifact_path="model"
+    )
 
 def run():
 
     config = load_config()
 
-    df = load_dataset(config)
+    mlflow.set_experiment(
+    config["mlflow"]["experiment_name"]
+)
+    with mlflow.start_run():
+        df = load_dataset(config)
+        mlflow.log_param(
+            "model_type",
+            "logistic_regression"
+        )
 
-    (
-        X_train,
-        X_val,
-        X_test,
-        y_train,
-        y_val,
-        y_test,
-    ) = split_data(
-        df,
-        config["training"]["random_state"],
-    )
+        mlflow.log_param(
+            "random_state",
+            config["training"]["random_state"]
+        )
 
-    pipeline = build_pipeline(
-        X_train
-    )
+        (
+            X_train,
+            X_val,
+            X_test,
+            y_train,
+            y_val,
+            y_test,
+        ) = split_data(
+            df,
+            config["training"]["random_state"],
+        )
 
-    model = train_model(
-        pipeline,
-        X_train,
-        y_train,
-    )
+        pipeline = build_pipeline(
+            X_train
+        )
 
-    evaluate_model(
-        model,
-        X_test,
-        y_test,
-    )
+        model = train_model(
+            pipeline,
+            X_train,
+            y_train,
+        )
 
-    save_model(
-        model,
-        Path(
-            config["artifacts"]["model_path"]
-        ),
-    )
+        accuracy = evaluate_model(
+            model,
+            X_test,
+            y_test,
+        )
+
+        save_model(
+            model,
+            Path(
+                config["artifacts"]["model_path"]
+            ),
+        )
 
 if __name__ == "__main__":
     run()

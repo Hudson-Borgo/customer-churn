@@ -17,3 +17,6 @@ training:
 
 artifacts:
   model_path: artifacts/model.pkl
+
+mlflow:
+  experiment_name: customer_churn
