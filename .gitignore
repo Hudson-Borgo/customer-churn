@@ -25,3 +25,7 @@ data/gold/*
 # OS
 .DS_Store
 Thumbs.db
+# MLflow local database
+mlflow.db
+
+mlruns/

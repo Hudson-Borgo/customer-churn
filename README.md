@@ -87,7 +87,7 @@ Data pipeline implementation is currently under development.
 - [x] Data validation
 - [x] Feature engineering
 - [x] Training pipeline
-- [ ] MLflow
+- [x] MLflow
 - [ ] Docker
 - [ ] FastAPI
 - [ ] CI/CD
