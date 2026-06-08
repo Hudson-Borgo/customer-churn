@@ -101,3 +101,56 @@ Data pipeline implementation is currently under development.
 - Feature store integration
 - Cloud deployment
 - Drift monitoring
+```
+churn-mlops
+├─ .pytest_cache
+│  ├─ CACHEDIR.TAG
+│  ├─ README.md
+│  └─ v
+│     └─ cache
+│        └─ nodeids
+├─ .ruff_cache
+│  ├─ 0.15.15
+│  │  ├─ 15156875728144846687
+│  │  ├─ 1623204139137528218
+│  │  ├─ 2520914726518562419
+│  │  ├─ 7473881215035151206
+│  │  └─ 7805723845045947902
+│  └─ CACHEDIR.TAG
+├─ configs
+│  └─ config.yaml
+├─ data
+├─ models
+├─ notebooks
+│  └─ exploratory_data_analysis
+│     └─ eda.ipynb
+├─ pyproject.toml
+├─ README.md
+├─ requirements.txt
+├─ src
+│  ├─ features
+│  │  ├─ build_features.py
+│  │  └─ __init__.py
+│  ├─ inference
+│  │  ├─ api.py
+│  │  ├─ predictor.py
+│  │  └─ __init__.py
+│  ├─ ingestion
+│  │  ├─ ingest.py
+│  │  └─ __init__.py
+│  ├─ training
+│  │  ├─ evalueate.py
+│  │  ├─ preprocessing.py
+│  │  ├─ train.py
+│  │  └─ __init__.py
+│  ├─ utils
+│  │  ├─ config.py
+│  │  └─ __init__.py
+│  ├─ validation
+│  │  ├─ validate.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+└─ tests
+   └─ test_config.py
+
+```

@@ -27,5 +27,8 @@ data/gold/*
 Thumbs.db
 # MLflow local database
 mlflow.db
-
 mlruns/
+
+# Cache
+.pytest_cache/
+.ruff_cache/
