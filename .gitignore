@@ -1,34 +1,26 @@
-# Virtual Environment
-.venv/
-
-# Python
-__pycache__/
-*.pyc
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Models
-models/*.pkl
-
-# Artifacts
-artifacts/
-
-# Data
-data/bronze/*
-data/silver/*
-data/gold/*
-
-# IDE
-.vscode/
-
-# OS
-.DS_Store
-Thumbs.db
-# MLflow local database
+# MLflow
 mlflow.db
 mlruns/
 
 # Cache
 .pytest_cache/
 .ruff_cache/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+data/
+
+# Artifacts
+artifacts/
+
+# IDE
+.vscode/
