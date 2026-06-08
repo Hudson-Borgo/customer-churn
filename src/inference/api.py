@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 from src.inference.predictor import predict_churn
 
-
 app = FastAPI(
     title="Customer Churn Prediction API",
     version="0.1.0",

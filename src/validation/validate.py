@@ -18,6 +18,7 @@ def validate_empty_dataset(df: pd.DataFrame) -> None:
     if df.empty:
         raise ValueError("Dataset is empty.")
 
+
 def validate_required_columns(df: pd.DataFrame) -> None:
     """Check if all required columns are present in the dataset."""
     missing_columns = set(REQUIRED_COLUMNS) - set(df.columns)
@@ -31,14 +32,13 @@ def validate_duplicate_customers(df: pd.DataFrame) -> None:
     duplicate_count = df["customerID"].duplicated().sum()
 
     if duplicate_count > 0:
-        raise ValueError(
-            f"Found {duplicate_count} duplicated customer IDs."
-        )
+        raise ValueError(f"Found {duplicate_count} duplicated customer IDs.")
+
 
 def validate_total_charges(
     df: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Check if TotalCharges can be converted to numeric and handle missing values, 
+    """Check if TotalCharges can be converted to numeric and handle missing values,
     following the business logic."""
 
     df = df.copy()
@@ -48,62 +48,42 @@ def validate_total_charges(
         errors="coerce",
     )
 
-    valid_missing_mask = (
-        (df["tenure"] == 0)
-        & (df["TotalCharges"].isna())
-    )
+    valid_missing_mask = (df["tenure"] == 0) & (df["TotalCharges"].isna())
 
-    df.loc[
-        valid_missing_mask,
-        "TotalCharges"
-    ] = 0 # Set TotalCharges to 0 for customers with tenure 0 and missing TotalCharges, because its a new client who has not been charged yet.
-
-    remaining_nulls = (
-        df["TotalCharges"]
-        .isna()
-        .sum()
+    df.loc[valid_missing_mask, "TotalCharges"] = (
+        0  # Set TotalCharges to 0 for customers with tenure 0 and missing TotalCharges,
     )
+    # because its a new client who has not been charged yet.
+
+    remaining_nulls = df["TotalCharges"].isna().sum()
 
     if remaining_nulls > 0:
-        raise ValueError(
-            f"Found {remaining_nulls} invalid TotalCharges values.")
+        raise ValueError(f"Found {remaining_nulls} invalid TotalCharges values.")
 
-    print(
-    f"Replaced {valid_missing_mask.sum()} "
-    "missing TotalCharges values."
-    )
+    print(f"Replaced {valid_missing_mask.sum()} " "missing TotalCharges values.")
     return df
+
 
 def validate_churn_values(df: pd.DataFrame) -> None:
     """Check if Churn column contains only valid values."""
     valid_values = {"Yes", "No"}
 
-    invalid_values = (
-        set(df["Churn"].unique())
-        - valid_values
-    )
+    invalid_values = set(df["Churn"].unique()) - valid_values
 
     if invalid_values:
-        raise ValueError(
-            f"Invalid churn values: {invalid_values}"
-        )
+        raise ValueError(f"Invalid churn values: {invalid_values}")
+
 
 def run() -> None:
     """Run the data validation process."""
     config = load_config()
 
-    source_path = Path(
-        config["paths"]["silver_data"]
-    )
+    source_path = Path(config["paths"]["silver_data"])
 
-    target_path = Path(
-        config["paths"]["validated_data"]
-    )
+    target_path = Path(config["paths"]["validated_data"])
 
     if not source_path.exists():
-        raise FileNotFoundError(
-            f"Input file not found: {source_path}"
-        )
+        raise FileNotFoundError(f"Input file not found: {source_path}")
 
     df = pd.read_parquet(source_path)
 
@@ -127,11 +107,7 @@ def run() -> None:
         index=False,
     )
 
-    print(
-        f"Validation completed. "
-        f"Rows: {len(df)} | "
-        f"Output: {target_path}"
-    )
+    print(f"Validation completed. " f"Rows: {len(df)} | " f"Output: {target_path}")
 
 
 if __name__ == "__main__":

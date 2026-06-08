@@ -12,27 +12,15 @@ def run() -> None:
     target_path = Path(config["paths"]["silver_data"])
 
     if not source_path.exists():
-        raise FileNotFoundError(
-            f"Input file not found: {source_path}"
-        )
+        raise FileNotFoundError(f"Input file not found: {source_path}")
 
     df = pd.read_csv(source_path)
 
-    target_path.parent.mkdir(
-        parents=True,
-        exist_ok=True
-    )
+    target_path.parent.mkdir(parents=True, exist_ok=True)
 
-    df.to_parquet(
-        target_path,
-        index=False
-    )
+    df.to_parquet(target_path, index=False)
 
-    print(
-        f"Ingestion completed. "
-        f"Rows: {len(df)} | "
-        f"Output: {target_path}"
-    )
+    print(f"Ingestion completed. " f"Rows: {len(df)} | " f"Output: {target_path}")
 
 
 if __name__ == "__main__":

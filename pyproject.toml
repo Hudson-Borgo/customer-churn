@@ -6,6 +6,11 @@ target-version = ["py311"]
 line-length = 88
 target-version = "py311"
 
+exclude = [
+    ".venv",
+    "notebooks",
+]
+
 [tool.ruff.lint]
 select = [
     "E",
