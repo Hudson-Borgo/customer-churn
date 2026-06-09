@@ -35,6 +35,14 @@ class CustomerData(BaseModel):
 def health_check():
     return {"status": "ok"}
 
+@app.get("/")
+def root():
+    return {
+        "message": "Customer Churn Prediction API",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
 
 @app.post("/predict")
 def predict(customer: CustomerData):
