@@ -39,9 +39,38 @@ def predict_churn(input_data: dict) -> dict:
         probability=result["churn_probability"],
     )
 
-    log_prediction(input_data, prediction, probability)
+    # log_prediction(input_data, prediction, probability)
 
     return {
         "prediction": int(prediction),
         "churn_probability": float(probability),
     }
+
+
+if __name__ == "__main__":
+
+    sample = {
+        "gender": "Female",
+        "SeniorCitizen": 1,
+        "Partner": "No",
+        "Dependents": "No",
+        "tenure": 2,
+        "PhoneService": "Yes",
+        "MultipleLines": "No",
+        "InternetService": "Fiber optic",
+        "OnlineSecurity": "No",
+        "OnlineBackup": "No",
+        "DeviceProtection": "No",
+        "TechSupport": "No",
+        "StreamingTV": "Yes",
+        "StreamingMovies": "Yes",
+        "Contract": "Month-to-month",
+        "PaperlessBilling": "Yes",
+        "PaymentMethod": "Electronic check",
+        "MonthlyCharges": 99.5,
+        "TotalCharges": 199.0,
+    }
+
+    result = predict_churn(sample)
+
+    print(result)
