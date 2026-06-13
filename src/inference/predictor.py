@@ -27,17 +27,16 @@ def predict_churn(input_data: dict) -> dict:
     prediction = model.predict(input_df)[0]
     probability = model.predict_proba(input_df)[0][1]
 
-
-    #Log the prediction result
+    # Log the prediction result
     result = {
-    "prediction": int(prediction),
-    "churn_probability": float(probability),
+        "prediction": int(prediction),
+        "churn_probability": float(probability),
     }
 
     log_prediction(
-    input_data=input_data,
-    prediction=result["prediction"],
-    probability=result["churn_probability"],
+        input_data=input_data,
+        prediction=result["prediction"],
+        probability=result["churn_probability"],
     )
 
     log_prediction(input_data, prediction, probability)

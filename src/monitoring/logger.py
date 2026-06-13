@@ -30,6 +30,4 @@ def log_prediction(
         encoding="utf-8",
     ) as file:
 
-        file.write(
-            json.dumps(log_entry) + "\n"
-        )
+        file.write(json.dumps(log_entry) + "\n")
