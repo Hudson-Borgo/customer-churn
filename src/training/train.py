@@ -108,7 +108,7 @@ def save_model(model: Pipeline, model_path: Path) -> None:
 def run() -> None:
     """Run the training pipeline."""
     config = load_config()
-
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
     mlflow.set_experiment(config["mlflow"]["experiment_name"])
 
     with mlflow.start_run():

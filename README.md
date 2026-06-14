@@ -1,110 +1,69 @@
-# Customer Churn Prediction — End-to-End MLOps Project
+# Customer Churn MLOps
 
-## Overview
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
+![MLflow](https://img.shields.io/badge/MLflow-Tracking-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![CI](https://github.com/Hudson-Borgo/customer-churn/actions/workflows/ci.yml/badge.svg)
 
-This is a personal project created for learning and practicing modern MLOps concepts and machine learning engineering workflows.
+End-to-end MLOps project for customer churn prediction using Python, Scikit-Learn, MLflow, FastAPI, Docker, CI/CD, and monitoring concepts.
 
-The main objective is to simulate how a production-oriented ML system is structured, developed, validated, and maintained using industry-inspired practices.
+This project was built for learning and practicing modern MLOps and ML Engineering concepts using a production-inspired architecture.
 
-The project covers:
+---
 
-* Data ingestion
-* Data validation
-* Feature engineering
-* Machine learning training pipelines
-* Experiment tracking with MLflow
-* Model artifact generation
-* FastAPI inference service
-* CI pipeline with GitHub Actions
+## Learning Purpose
+
+This is a personal project focused on learning how real-world machine learning systems are structured, deployed, monitored, and maintained.
+
+The main goal is not achieving the best churn prediction model, but rather implementing a complete and reproducible ML workflow following engineering and MLOps best practices.
+
+The project focuses on:
+
+- reproducible pipelines
+- modular project architecture
+- experiment tracking
+- inference APIs
+- Docker containerization
+- CI/CD workflows
+- monitoring foundations
+- automated quality checks
 
 ---
 
 # Business Problem
 
-Customer churn directly impacts company revenue and long-term growth.
+Customer churn directly impacts revenue, retention, and company growth.
 
-Companies that can identify customers with a high probability of churn are able to:
-
-* improve customer retention
-* reduce revenue loss
-* optimize retention campaigns
-* allocate commercial efforts more efficiently
-
-This project predicts customer churn probability using supervised machine learning techniques.
+This project predicts the probability of customer churn using machine learning while simulating how a production-oriented ML system would be implemented.
 
 ---
 
 # Solution Architecture
 
 ```text
-Raw CSV Dataset
-        │
-        ▼
-Bronze Layer
-(raw ingestion)
-        │
-        ▼
-Silver Layer
-(validation and data quality)
-        │
-        ▼
-Gold Layer
-(feature engineering)
-        │
-        ▼
-Training Pipeline
-(scikit-learn pipeline)
-        │
-        ▼
+Raw Data
+    ↓
+Data Ingestion
+    ↓
+Data Validation
+    ↓
+Feature Engineering
+    ↓
+Model Training
+    ↓
 MLflow Tracking
-(experiments and metrics)
-        │
-        ▼
-Model Artifact
-(model.pkl)
-        │
-        ▼
-FastAPI Inference Service
-        │
-        ▼
-Prediction Endpoint
+    ↓
+Model Registry
+    ↓
+FastAPI Inference API
+    ↓
+Prediction Logging
+    ↓
+Drift Monitoring
+    ↓
+Docker Deployment
 ```
-
----
-
-# Data Architecture
-
-The project follows the Bronze / Silver / Gold layered architecture 
-
-## Bronze Layer
-
-Raw immutable dataset.
-
-Responsibilities:
-
-* preserve source data
-
-
-## Silver Layer
-
-Validateddataset.
-
-Responsibilities:
-
-* schema validation
-* missing value handling
-* duplicate validation
-* business rule enforcement
-
-## Gold Layer
-
-Machine-learning-ready dataset.
-
-Responsibilities:
-
-* feature preparation
-* target creation
-* final training schema
 
 ---
 
@@ -112,139 +71,114 @@ Responsibilities:
 
 ```text
 customer-churn/
-
+│
+├── artifacts/
+│   └── model.pkl
+│
 ├── configs/
 │   └── config.yaml
+│
+├── data/
+│   ├── bronze/
+│   ├── silver/
+│   └── gold/
+│
+├── logs/
 │
 ├── notebooks/
 │   └── exploratory_data_analysis/
 │
 ├── src/
-│   ├── ingestion/
-│   ├── validation/
 │   ├── features/
-│   ├── training/
 │   ├── inference/
-│   └── utils/
+│   ├── ingestion/
+│   ├── monitoring/
+│   ├── training/
+│   ├── utils/
+│   └── validation/
 │
 ├── tests/
 │
-├── .github/
-│   └── workflows/
-│
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
 ├── pyproject.toml
 ├── requirements.txt
-├── README.md
-└── Dockerfile
+└── README.md
 ```
 
 ---
 
 # Tech Stack
 
-| Technology     | Purpose                   |
-| -------------- | ------------------------- |
-| Python         | Main programming language |
-| Pandas         | Data manipulation         |
-| Scikit-Learn   | Machine learning          |
-| MLflow         | Experiment tracking       |
-| FastAPI        | Inference API             |
-| Ruff           | Linting                   |
-| Black          | Code formatting           |
-| Pytest         | Automated testing         |
-| GitHub Actions | CI pipeline               |
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| Pandas | Data processing |
+| Scikit-Learn | Machine learning |
+| MLflow | Experiment tracking |
+| FastAPI | Inference API |
+| Docker | Containerization |
+| Docker Compose | Service orchestration |
+| Pytest | Automated testing |
+| Ruff | Linting |
+| Black | Code formatting |
+| GitHub Actions | CI/CD |
 
 ---
 
-# Machine Learning Pipeline
+# MLOps Concepts Implemented
 
-The training pipeline uses:
+## Data Engineering
 
-* `ColumnTransformer`
-* `OneHotEncoder`
-* `StandardScaler`
-* `LogisticRegression`
+- Bronze / Silver / Gold architecture
+- Reproducible pipelines
+- Data validation
 
-The preprocessing and model are encapsulated into a single artifact, this guarantee consistency 
+## Machine Learning
 
----
+- Feature engineering
+- Train / validation / test split
+- Logistic Regression baseline model
+- Model artifact generation
 
-# MLflow Tracking
+## Experiment Tracking
 
-MLflow is used to track:
+- MLflow experiments
+- Parameter logging
+- Metric logging
+- Model logging
 
-* model parameters
-* metrics
-* experiments
-* trained model artifacts
+## Inference
 
-Tracked examples:
+- FastAPI prediction endpoint
+- Health check endpoint
+- JSON request validation
 
-* model type
-* random state
-* train/test split
-* accuracy metrics
+## Monitoring
 
----
+- Prediction logging
+- Drift detection foundations
+- Inference observability
 
-# FastAPI Inference Service
+## Software Engineering
 
-The project exposes a REST API for inference.
+- Modular architecture
+- Automated tests
+- Linting and formatting
+- Makefile automation
 
-## Endpoints
+## DevOps / MLOps
 
-### Health Check
-
-```http
-GET /health
-```
-
-Response:
-
-```json
-{
-  "status": "ok"
-}
-```
-
-### Prediction Endpoint
-
-```http
-POST /predict
-```
-
-Example response:
-
-```json
-{
-  "prediction": 1,
-  "churn_probability": 0.6252
-}
-```
+- Docker containerization
+- Docker Compose
+- CI/CD with GitHub Actions
 
 ---
 
-# Continuous Integration
+# Local Setup
 
-GitHub Actions is configured to automatically run:
-
-* Ruff
-* Black
-* Pytest
-
-on every push and pull request to the `main` branch.
-
-This ensures:
-
-* code quality
-* formatting consistency
-* basic pipeline validation
-
----
-
-# Setup
-
-## Clone Repository
+## Clone repository
 
 ```bash
 git clone https://github.com/Hudson-Borgo/customer-churn.git
@@ -252,21 +186,29 @@ git clone https://github.com/Hudson-Borgo/customer-churn.git
 cd customer-churn
 ```
 
-## Create Virtual Environment
+---
+
+## Create virtual environment
+
+### macOS / Linux
 
 ```bash
-python -m venv .venv
-```
+python3 -m venv .venv
 
-## Activate Environment
+source .venv/bin/activate
+```
 
 ### Windows
 
 ```bash
+python -m venv .venv
+
 .venv\Scripts\activate
 ```
 
-## Install Dependencies
+---
+
+## Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -274,31 +216,28 @@ pip install -r requirements.txt
 
 ---
 
-# Running the Project
+# Running the Pipeline
 
-## Data Ingestion
-
-```bash
-python -m src.ingestion.ingest
-```
-
-## Data Validation
+## Run full pipeline
 
 ```bash
-python -m src.validation.validate
+make pipeline
 ```
 
-## Feature Engineering
+---
+
+## Individual stages
 
 ```bash
-python -m src.features.build_features
+make ingest
+make validate
+make features
+make train
 ```
 
-## Model Training
+---
 
-```bash
-python -m src.training.train
-```
+# MLflow
 
 ## Start MLflow UI
 
@@ -306,51 +245,189 @@ python -m src.training.train
 mlflow ui
 ```
 
-## Start FastAPI Service
+Open:
 
-```bash
-uvicorn src.inference.api:app --reload
+```text
+http://127.0.0.1:5000
 ```
 
 ---
 
-# Current Status
+# Running the API
 
-## Completed
+## Local execution
 
-* Project structure
-* Data ingestion pipeline
-* Data validation layer
-* Feature engineering pipeline
-* ML training pipeline
-* MLflow integration
-* FastAPI inference service
-* CI pipeline with GitHub Actions
+```bash
+make api
+```
 
-## In Progress
+Open:
 
-* Monitoring
-* Drift detection
-* Deployment strategy
-* Docker support
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# Docker
+
+## Build container
+
+```bash
+make docker-build
+```
+
+---
+
+## Run with Docker Compose
+
+```bash
+make docker-up
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+Stop containers:
+
+```bash
+make docker-down
+```
+
+---
+
+# API Example
+
+## POST `/predict`
+
+Request:
+
+```json
+{
+  "gender": "Female",
+  "SeniorCitizen": 1,
+  "Partner": "No",
+  "Dependents": "No",
+  "tenure": 2,
+  "PhoneService": "Yes",
+  "MultipleLines": "No",
+  "InternetService": "Fiber optic",
+  "OnlineSecurity": "No",
+  "OnlineBackup": "No",
+  "DeviceProtection": "No",
+  "TechSupport": "No",
+  "StreamingTV": "Yes",
+  "StreamingMovies": "Yes",
+  "Contract": "Month-to-month",
+  "PaperlessBilling": "Yes",
+  "PaymentMethod": "Electronic check",
+  "MonthlyCharges": 99.5,
+  "TotalCharges": 199.0
+}
+```
+
+Response:
+
+```json
+{
+  "prediction": 1,
+  "churn_probability": 0.81
+}
+```
+
+---
+
+# Automated Tests
+
+Run tests:
+
+```bash
+make test
+```
+
+Run quality checks:
+
+```bash
+make quality
+```
+
+---
+
+# CI/CD
+
+GitHub Actions automatically runs:
+
+- Ruff
+- Black
+- Pytest
+
+on every push and pull request.
+
+---
+
+# Monitoring
+
+Current monitoring features:
+
+- prediction logging
+- inference tracking
+- drift detection foundations
+
+Future improvements:
+
+- PSI drift metrics
+- model performance monitoring
+- Prometheus/Grafana integration
+- Evidently AI integration
 
 ---
 
 # Future Improvements
 
-* Hyperparameter optimization
-* Model registry integration
-* Data drift monitoring
-* Model drift monitoring
-* Automated retraining
-* Cloud deployment
-* Docker containerization
-* Feature store integration
+- Hyperparameter tuning
+- Feature Store integration
+- Cloud deployment
+- Model Registry improvements
+- Advanced monitoring
+- Kubernetes deployment
+- Canary deployments
+- Automated retraining
 
 ---
 
-# Notes
+# Key Engineering Concepts Demonstrated
 
-Docker support was intentionally deferred because the current development environment does not provide administrator privileges.
+This project demonstrates concepts commonly used in ML Engineering and MLOps environments:
 
-The project architecture remains container-ready and deployment-oriented.
+- modular ML systems
+- reproducible pipelines
+- containerized inference
+- CI/CD workflows
+- experiment tracking
+- API serving
+- monitoring foundations
+- software engineering practices for ML
+
+---
+
+
+## MLflow
+
+![MLflow](assets/mlflow.png)
+
+## FastAPI Swagger
+
+![Swagger](assets/swagger.png)
+
+## Docker Container
+
+![Docker](assets/docker.png) 
+
+# Author
+
+Hudson Borgo
+
+Senior Data Scientist focused on Machine Learning Engineering, MLOps, and production-oriented AI systems.
