@@ -2,3 +2,4 @@ ipykernel
 matplotlib
 seaborn
 plotly
+httpx
