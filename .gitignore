@@ -25,3 +25,9 @@ artifacts/
 
 # IDE
 .vscode/
+
+#logs
+logs/
+
+#ds_store
+.DS_Store
